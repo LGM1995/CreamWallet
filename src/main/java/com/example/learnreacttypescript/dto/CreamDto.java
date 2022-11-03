@@ -1,13 +1,10 @@
 package com.example.learnreacttypescript.dto;
 
-import com.example.learnreacttypescript.domain.Cream;
-import com.example.learnreacttypescript.domain.Customer;
+import com.example.learnreacttypescript.entity.Cream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 
 @AllArgsConstructor

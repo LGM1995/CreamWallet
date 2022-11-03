@@ -1,4 +1,4 @@
-package com.example.learnreacttypescript.domain;
+package com.example.learnreacttypescript.entity;
 
 import com.example.learnreacttypescript.dto.CreamDto;
 import lombok.*;
@@ -26,8 +26,8 @@ public class Cream {
     @Column (nullable = false)
     private Long temperature;
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public void update(CreamDto creamDto) {
         this.date = creamDto.getDate();

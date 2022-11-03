@@ -1,24 +1,24 @@
 package com.example.learnreacttypescript.service;
 
-import com.example.learnreacttypescript.domain.Cream;
-import com.example.learnreacttypescript.domain.Customer;
+import com.example.learnreacttypescript.entity.Cream;
+import com.example.learnreacttypescript.entity.User;
 import com.example.learnreacttypescript.dto.CreamDto;
 import com.example.learnreacttypescript.repository.CreamRepository;
-import com.example.learnreacttypescript.repository.CustomerRepository;
+import com.example.learnreacttypescript.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CreamService {
     private final CreamRepository creamRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
-    public CreamService(CreamRepository creamRepository, CustomerRepository customerRepository) {
+    public CreamService(CreamRepository creamRepository, UserRepository userRepository) {
         this.creamRepository = creamRepository;
-        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -30,13 +30,13 @@ public class CreamService {
 
     @Transactional
     public CreamDto create(Long customerId, CreamDto creamDto) {
-        Customer customer = customerRepository.findById(customerId).orElse(null);
-        if (customer != null) {
+        User user = userRepository.findById(customerId).orElse(null);
+        if (user != null) {
             Cream newCream = Cream.builder()
                     .menu(creamDto.getMenu())
                     .date(creamDto.getDate())
                     .state(creamDto.getState())
-                    .customer(customer)
+                    .user(user)
                     .build();
             creamRepository.save(newCream);
         }
