@@ -1,6 +1,6 @@
 import './App.css';
-import Hello from "./component/Hello";
-import Welcome from "./component/Welcome";
+import Hello from "./example/Hello";
+import Welcome from "./example/Welcome";
 import PageNotFound from "./component/PageNotFound";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 

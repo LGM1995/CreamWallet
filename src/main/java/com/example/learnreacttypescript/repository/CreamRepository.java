@@ -14,5 +14,5 @@ public interface CreamRepository extends JpaRepository<Cream, Long> {
     @Query(value =
     "SELECT * FROM cream c join user u on c.user_id = u.user_id WHERE u.username = :username",
             nativeQuery = true)
-    List<Cream> findByCustomerId(@Param("username") String username);
+    List<Cream> findByUsername(@Param("username") String username);
 }

@@ -2,9 +2,22 @@ import styles from "./JoinProc.module.css";
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import redirect from "react-router-dom/es/Redirect";
 
 export default function JoinProc () {
-    function SignIn() {
+        const [newUser, setNewUser] = useState({
+            username: "",
+            password: "",
+            email: "",
+            name: "",
+        });
+
+        const handleChange = (e) => {
+            setNewUser({
+                ...newUser,
+                [e.target.name]: e.target.value
+            });
+        };
     //     const [UserName, SetUserName] = useState("");
     //     const [Password, SetPassword] = useState("");
     //     const [Email, SetEmail] = useState("");
@@ -42,30 +55,41 @@ export default function JoinProc () {
     //             password: Password,
     //             email: Email,
     //             name: Name,
-    //             phone: Phone
     //         }).then(function (response) {
     //             if (response.data.code == 0) {
     //                 set
     //             }
     //         })
     //     })
-    }
+        function SignUp() {
+            axios({
+                url: '/api/signup',
+                method: 'post',
+                data: {
+                    username: newUser.username,
+                    password: newUser.password,
+                    name: newUser.name,
+                    email: newUser.email,
+                }
+            }).then((response) => {
+                return null;
+            })
+        }
+
 
     return (
         <div className={styles.container}>
             <div className={styles.signup}>Sign Up</div>
             <form className={styles.formContainer} >
-                <input type="text" placeholder="ID" >
+                <input name="username" type="text" placeholder="ID" value={newUser.username} onChange={handleChange}>
                 </input>
-                <input type="password" placeholder="PW">
+                <input name="password" type="password" placeholder="PW" value={newUser.password} onChange={handleChange}>
                 </input>
-                <input type="text" placeholder="NAME">
+                <input name="name" type="text" placeholder="NAME" value={newUser.name} onChange={handleChange}>
                 </input>
-                <input type="text" placeholder="PHONE">
+                <input name="email" type="email" placeholder="EMAIL" value={newUser.email} onChange={handleChange}>
                 </input>
-                <input type="email" placeholder="EMAIL">
-                </input>
-                <button type="submit" className={styles.button} >
+                <button type="submit" className={styles.button} onClick={SignUp}>
                     Scoop
                 </button>
             </form>

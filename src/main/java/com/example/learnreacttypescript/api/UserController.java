@@ -20,11 +20,6 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping("/hello")
-//    public ResponseEntity<String> hello() {
-//        return ResponseEntity.ok("hello");
-//    }
-
     @PostMapping("/test-redirect")
     public void testRedirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/api/user");
@@ -34,7 +29,6 @@ public class UserController {
     public ResponseEntity<UserDto> signup(
             @Valid @RequestBody UserDto userDto
     ) {
-        System.out.println("api 요청");
         return ResponseEntity.ok(userService.signup(userDto));
     }
 

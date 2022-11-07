@@ -3,6 +3,7 @@ package com.example.learnreacttypescript.service;
 import com.example.learnreacttypescript.entity.Cream;
 import com.example.learnreacttypescript.entity.User;
 import com.example.learnreacttypescript.dto.CreamDto;
+import com.example.learnreacttypescript.exception.DuplicateMemberException;
 import com.example.learnreacttypescript.repository.CreamRepository;
 import com.example.learnreacttypescript.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,16 @@ public class CreamService {
     }
 
     @Transactional
-    public List<CreamDto> creamList(String customerId) {
-        return creamRepository.findByCustomerId(customerId).stream()
+    public List<CreamDto> creamList(String username) {
+        return creamRepository.findByUsername(username).stream()
                 .map(cream -> CreamDto.fromEntity(cream))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public CreamDto create(Long customerId, CreamDto creamDto) {
-        User user = userRepository.findById(customerId).orElse(null);
+    public CreamDto create(String username, CreamDto creamDto) {
+        User user = userRepository.findOneWithAuthoritiesByUsername(username).orElse(null);
+        CreamDto cream;
         if (user != null) {
             Cream newCream = Cream.builder()
                     .menu(creamDto.getMenu())
@@ -39,8 +41,11 @@ public class CreamService {
                     .user(user)
                     .build();
             creamRepository.save(newCream);
+            cream = CreamDto.fromEntity(newCream);
+        } else {
+            throw new DuplicateMemberException("없는 회원 입니다.");
         }
-        return null;
+        return cream;
     }
 
     @Transactional
@@ -58,5 +63,7 @@ public class CreamService {
         creamRepository.delete(cream);
         return CreamDto.fromEntity(cream);
     }
+
+
 
 }
