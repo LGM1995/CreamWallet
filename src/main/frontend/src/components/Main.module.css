@@ -1,0 +1,182 @@
+.mainContainer {
+    position: relative;
+    width: 320px;
+    min-height: 727px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: #93C8B4;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+}
+
+.headerContainer {
+    position: relative;
+    width: 272px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 13px;
+    margin-top: 33px;
+
+}
+
+.year {
+    position: relative;
+    display: flex;
+    width: 272px;
+    height: 33px;
+    justify-content: space-between;
+    align-items: center;
+}
+.yearTemperature {
+    min-width: 148px;
+    height: 33px;
+
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #776D61;
+}
+.selectYear {
+    position: relative;
+    width: 51px;
+    height: 19px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.dropYear {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.temperature {
+    position: relative;
+    width: 272px;
+    height: 33px;
+
+    font-size: 32px;
+    font-family: Strong;
+    font-weight: 700;
+    line-height: 38px;
+    align-items: center;
+    text-align: left;
+    color: #00c2ec;
+    -webkit-text-stroke: 1px #66A091;
+}
+.IH {
+    position: relative;
+    display: flex;
+    width: 272px;
+    height: 50px;
+    margin-top: 24px;
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.IHContainer {
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    width: 136px;
+    height: 50px;
+    border: 1px solid blue;
+}
+.IHTitle {
+    position: relative;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+.IHTemperature {
+    position: relative;
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    /*-webkit-text-stroke: 1px #66A091;*/
+}
+
+.hot {
+
+}
+
+.chartContainer {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+    width: 272px;
+    height: 256px;
+    border: 1px solid red;
+}
+
+.creamContainer {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 272px;
+    height: 219px;
+    border: 1px solid red;
+}
+
+.cream {
+    position: fixed;
+    position: relative;
+    width: 272px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.addScoop {
+    position: relative;
+    width: 320px;
+    min-height: 64px;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: #93C8B4;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+}

@@ -25,13 +25,6 @@ public class UserController {
         response.sendRedirect("/api/user");
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(
-            @Valid @RequestBody UserDto userDto
-    ) {
-        return ResponseEntity.ok(userService.signup(userDto));
-    }
-
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserDto> getMyUserInfo(HttpServletRequest request) {
