@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    @NotNull
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -40,6 +42,7 @@ public class UserDto {
         if(user == null) return null;
 
         return UserDto.builder()
+                .id(user.getUserId())
                 .username(user.getUsername())
                 .name(user.getName())
                 .email(user.getEmail())

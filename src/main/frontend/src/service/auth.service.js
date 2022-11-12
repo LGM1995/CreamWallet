@@ -20,6 +20,7 @@ const login = (username, password) => {
     .then((response) => {
       if (response.data.username) {
         localStorage.setItem("user", response.data.username);
+        localStorage.setItem("user_id", response.data.id);
         localStorage.setItem("Authorization", response.headers.get("Authorization"));
       }
 
@@ -29,6 +30,7 @@ const login = (username, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("id");
   localStorage.removeItem("Authorization");
   return null;
 };

@@ -45,9 +45,11 @@ public class AuthController {
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         String username = loginDto.getUsername();
+
+        Long id = userService.getUserWithAuthorities(username).getId();
         System.out.println(loginDto.getUsername() + " 님이 로그인 했습니다.");
 
-        return new ResponseEntity<>(new TokenDto(jwt, username), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(jwt, username, id), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/signup")

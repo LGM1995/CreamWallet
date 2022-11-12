@@ -1,24 +1,33 @@
 import React, {useEffect, useState} from "react";
-import { Navigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
-import UserService from "../service/user.service";
+import {Navigate, useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import CreamService from "../service/cream.service";
 import axios from "axios";
+import {clearMessage} from "../slices/message";
+import {getC} from "../slices/cream";
+
 
 const Cream = () => {
-  const [wallet, setWallet] = useState([]);
-  // const [year, setYear] = useState();
-  // const [month, setMonth] = useState();
-  // const [day, setDay] = useState();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { user_id } = useSelector((state) => state.auth);
+  const { creams } = useSelector((state) => state.cream)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      const res = (await (UserService.getCreams(
+      const res = (await (CreamService.getCreams(
         localStorage.getItem("user"),
         localStorage.getItem("Authorization")
       ))).data
-      setWallet(res)
+      // setWallet(res)
+      dispatch(getC(res))
     })();
   }, [])
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
 
   function won(num) {
     return num.toLocaleString('ko-KR');
@@ -32,22 +41,34 @@ const Cream = () => {
 
 
   function List() {
-    return (wallet.map(cream => (
-      <div key={cream.id}>
-        <p>{cream.menu} {time(cream.date)} {cream.state} {won(cream.temperature)}</p>
+    const re = [...creams]
+    return (re.sort((a,b) => new Date(a.date) - new Date(b.date)).map(item => (
+      <div key={item.id}>
+        <p>{item.menu} {time(item.date)} {item.state} {won(item.temperature)}</p>
         <button>수정</button>
         <button>삭제</button>
       </div>
     )))
   }
 
-  const rr = wallet.sort((a,b) => new Date(a.date) - new Date(b.date))
-console.log(rr)
+  function Create() {
+    return (
+      <div>
+        <input type="text" />메뉴
+        <input type="text" />날짜
+        <input type="text" />가격
+        <input type="text" />상태
+        <button>생성</button>
+        <button>취소</button>
+      </div>
+    )
+  }
 
   return (
     <div>
         <div>hello</div>
         <List></List>
+      <Create></Create>
     </div>
   );
 };
