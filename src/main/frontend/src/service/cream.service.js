@@ -10,19 +10,31 @@ const getCreams = (username, token) => {
   });
 };
 
-const scoop = (menu, date, temperature, state, user_id, username) => {
-  return axios.post(API_URL + username + "scoop", {
+const scoop = (menu, date, temperature, state, username, token) => {
+  return axios.post(API_URL + username + "/scoop", {
     menu,
     date,
     temperature,
     state,
-    user_id
+  }, {
+    headers: {
+      Authorization:token
+    }
+  })
+}
+
+const deleteCream = (id) => {
+  return axios.delete(API_URL + localStorage.getItem("user") + "/delete/" + id, {
+    headers: {
+      Authorization:localStorage.getItem("Authorization")
+    }
   })
 }
 
 const CreamService = {
   getCreams,
   scoop,
+  deleteCream,
 //   getModeratorBoard,
 //   getAdminBoard,
 }

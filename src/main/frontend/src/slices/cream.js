@@ -3,14 +3,11 @@ import { setMessage } from "./message";
 
 import CreamService from "../service/cream.service"
 
-const user = localStorage.getItem("user");
-const user_id = localStorage.getItem("user_id");
-
-export const create = createAsyncThunk(
+export const createCream = createAsyncThunk(
   "cream/create",
-  async ({ menu, date, temperature, state, user_id, username }, thunkAPI) => {
+  async ({ menu, date, temperature, state, username, token }, thunkAPI) => {
     try {
-      const response = await CreamService.scoop( menu, date, temperature, state, user_id, username );
+      const response = await CreamService.scoop( menu, date, temperature, state, username, token );
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -26,11 +23,11 @@ export const create = createAsyncThunk(
   }
 );
 
-export const getTT = createAsyncThunk(
-  "cream/list",
-  async ({username , token}, thunkAPI) => {
+export const deleteCream = createAsyncThunk(
+  "cream/delete",
+  async ({id}, thunkAPI) => {
     try {
-      const response = await CreamService.getCreams( username , token);
+      const response = await CreamService.deleteCream(id);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -46,33 +43,33 @@ export const getTT = createAsyncThunk(
   }
 );
 
+
 const initialState = {
   creams: [], cream: null
 }
-
 
 const creamSlice = createSlice({
   name: "cream",
   initialState,
   reducers: {
-    getC:(state, action) => {
+    getCreamList:(state, action) => {
       state.creams = action.payload;
     }
   },
   extraReducers: {
-    [create.fulfilled]: (state, action) => {
+    [createCream.fulfilled]: (state, action) => {
     },
-    [create.rejected]: (state, action) => {
+    [createCream.rejected]: (state, action) => {
     },
-    [getTT.fulfilled]: (state, action) => {
-      state.creams = action.payload;
+    [deleteCream.fulfilled]: (state, action) => {
+
     },
-    [getTT.rejected]: (state, action) => {
+    [deleteCream.rejected]: (state, action) => {
 
     }
   },
 });
 
 const { reducer } = creamSlice;
-export const {getC, set} = creamSlice.actions;
+export const {getCreamList, set} = creamSlice.actions;
 export default reducer;

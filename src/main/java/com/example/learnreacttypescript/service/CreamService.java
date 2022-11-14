@@ -37,6 +37,7 @@ public class CreamService {
             Cream newCream = Cream.builder()
                     .menu(creamDto.getMenu())
                     .date(creamDto.getDate())
+                    .temperature(creamDto.getTemperature())
                     .state(creamDto.getState())
                     .user(user)
                     .build();

@@ -4,6 +4,7 @@ import { setMessage } from "./message";
 import AuthService from "../service/auth.service";
 
 const user = localStorage.getItem("user");
+const jwtToken = localStorage.getItem("Authorization");
 const user_id = localStorage.getItem("user_id");
 
 export const register = createAsyncThunk(
@@ -50,8 +51,8 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 });
 
 const initialState = user
-  ? { isLoggedIn: true, user, user_id }
-  : { isLoggedIn: false, user: null, user_id: null};
+  ? { isLoggedIn: true, user, user_id, jwtToken }
+  : { isLoggedIn: false, user: null, user_id: null, jwtToken: null};
 
 const authSlice = createSlice({
   name: "auth",
@@ -67,6 +68,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.user = action.payload.user;
       state.user_id = action.payload.user_id;
+      state.jwtToken = action.payload.jwtToken;
     },
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
@@ -76,6 +78,7 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
       state.user_id = null;
+      state.jwtToken = null;
     },
   },
 });

@@ -120,6 +120,11 @@ const Join = () => {
                           : "")
                       }
                     />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="invalid-feedback"
+                    />
 
                     <div className="form-group">
                       <label htmlFor="name">name</label>
@@ -156,11 +161,7 @@ const Join = () => {
                         className="invalid-feedback"
                       />
                     </div>
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="invalid-feedback"
-                    />
+
                   </div>
 
                   <div className="form-group">
