@@ -23,6 +23,20 @@ const scoop = (menu, date, temperature, state, username, token) => {
   })
 }
 
+const updateCream = (id, menu, date, temperature, state) => {
+  return axios.post(API_URL + localStorage.getItem("user") + "/update/" + id , {
+    id,
+    menu,
+    date,
+    temperature,
+    state,
+  }, {
+    headers: {
+      Authorization:localStorage.getItem("Authorization")
+    }
+  })
+}
+
 const deleteCream = (id) => {
   return axios.delete(API_URL + localStorage.getItem("user") + "/delete/" + id, {
     headers: {
@@ -35,7 +49,7 @@ const CreamService = {
   getCreams,
   scoop,
   deleteCream,
-//   getModeratorBoard,
+  updateCream,
 //   getAdminBoard,
 }
 

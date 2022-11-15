@@ -5,9 +5,9 @@ import CreamService from "../service/cream.service"
 
 export const createCream = createAsyncThunk(
   "cream/create",
-  async ({ menu, date, temperature, state, username, token }, thunkAPI) => {
+  async ({ menu, date, temperature, state }, thunkAPI) => {
     try {
-      const response = await CreamService.scoop( menu, date, temperature, state, username, token );
+      const response = await CreamService.scoop( menu, date, temperature, state );
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -15,6 +15,26 @@ export const createCream = createAsyncThunk(
         (error.response &&
         error.response.data &&
         error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const updateCream = createAsyncThunk(
+  "cream/update",
+  async ({ id, menu, date, temperature, state }, thunkAPI) => {
+    try {
+      const response = await CreamService.updateCream( id, menu, date, temperature, state );
+      thunkAPI.dispatch(setMessage(response.data.message));
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
@@ -65,6 +85,12 @@ const creamSlice = createSlice({
 
     },
     [deleteCream.rejected]: (state, action) => {
+
+    },
+    [updateCream.fulfilled]: (state, action) => {
+
+    },
+    [updateCream.rejected]: (state, action) => {
 
     }
   },

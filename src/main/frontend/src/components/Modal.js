@@ -1,54 +1,26 @@
-import React, {useEffect, useState} from "react";
-import {Navigate, useNavigate} from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import CreamService from "../service/cream.service";
-import {clearMessage} from "../slices/message";
-import {createCream, deleteCream, getCreamList} from "../slices/cream";
-import * as Yup from "yup";
+import React, {useState} from 'react';
+import styles from './Modal.module.css'
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import Modal from "./Modal";
+import {useDispatch, useSelector} from "react-redux";
+import * as Yup from "yup";
+import {updateCream} from "../slices/cream";
 
-
-const Cream = () => {
-  const [successful, setSuccessful] = useState(false);
-  const [ show, setShow ] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
+const Modal = ({modalClose, id}) => {
+  console.log(id);
   const { user } = useSelector((state) => state.auth);
-  const { user_id } = useSelector((state) => state.auth);
   const { jwtToken } = useSelector((state) => state.auth);
-  const { creams } = useSelector((state) => state.cream);
+  const [successful, setSuccessful] = useState(false);
+  const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
-
-  useEffect(() => {
-    (async () => {
-      const res = (await (CreamService.getCreams( user, jwtToken))).data
-      dispatch(getCreamList(res));
-    })();
-  }, [])
-
-  useEffect(() => {
-    dispatch(clearMessage());
-  }, [dispatch]);
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
-  }
-
-  function onShow() {
-    setShow(true);
-  }
-
-  function offShow()
-  {
-    setShow(false);
-  }
   const initialValues = {
+    id: "",
     menu: "",
     date: "",
     temperature: "",
     state: "",
+    username: user,
+    token: jwtToken
   };
 
   const validationSchema = Yup.object().shape({
@@ -82,11 +54,11 @@ const Cream = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { menu, date ,temperature, state } = formValue;
+    const { menu, date ,temperature, state, username, token} = formValue;
 
     setSuccessful(false);
 
-    dispatch(createCream({ menu, date ,temperature, state }))
+    dispatch(updateCream({ menu, date ,temperature, state, username, token }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -97,40 +69,15 @@ const Cream = () => {
       });
   };
 
-  function time(t) {
-    let date = new Date(t);
-    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-  }
-
-  function List() {
-    const cream = {
-      id: "",
-      menu: "",
-      date: "",
-      temperature: "",
-      state: "",
+  const onCloseModal = (e) => {
+    if(e.target === e.currentTarget){
+      modalClose()
     }
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const modalClose = () => {
-      setModalOpen(!modalOpen);
-    }
-
-    const re = [...creams]
-    return (
-      re.sort((a,b) => new Date(a.date) - new Date(b.date)).map(item => (
-      <div key={item.id}>
-        <p>{item.menu} {time(item.date)} {item.state} {(item.temperature).toLocaleString('ko-KR')}</p>
-        <button onClick={modalClose}>수정</button>
-        { modalOpen && <Modal id={item.id} modalClose={modalClose}></Modal>}
-        <button onClick={() => dispatch(deleteCream({id:item.id}))}>삭제</button>
-      </div>
-    )))
   }
-
-  function Create() {
-    return (
-      <div>
+  return (
+    <div className={styles.modal__container} onClick={onCloseModal}>
+      <div className={styles.modal}>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -145,6 +92,7 @@ const Cream = () => {
                     <Field
                       name="menu"
                       type="text"
+                      value=""
                       className={
                         "form-control" +
                         (errors.menu && touched.menu
@@ -216,7 +164,7 @@ const Cream = () => {
 
                   <div className="form-group">
                     <button type="submit" className="btn btn-primary btn-block">
-                      생성
+                      수정
                     </button>
                   </div>
                 </div>
@@ -237,19 +185,10 @@ const Cream = () => {
             </div>
           </div>
         )}
+        <button className={styles.modal__button} onClick={modalClose}> Modal Close</button>
       </div>
-    )
-  }
-
-  return (
-    <div>
-        <List></List>
-      <button onClick={onShow}>생성</button>
-      <button onClick={offShow}>취소</button>
-      { show && <Create /> }
     </div>
-  );
-};
+  )
+}
 
-
-export default Cream;
+export default Modal
