@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    @NotNull
     private Long id;
 
     @NotNull

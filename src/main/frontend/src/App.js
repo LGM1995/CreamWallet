@@ -11,8 +11,6 @@ import Cream from "./components/Cream";
 import { logout } from "./slices/auth";
 
 const App = () => {
-    // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-    // const [showAdminBoard, setShowAdminBoard] = useState(false);
 
     const { user: currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();

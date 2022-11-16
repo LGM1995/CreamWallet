@@ -10,21 +10,21 @@ const getCreams = (username, token) => {
   });
 };
 
-const scoop = (menu, date, temperature, state, username, token) => {
-  return axios.post(API_URL + username + "/scoop", {
+const scoop = (menu, date, temperature, state) => {
+  return axios.post(API_URL + localStorage.getItem("user") + "/scoop", {
     menu,
     date,
     temperature,
     state,
   }, {
     headers: {
-      Authorization:token
+      Authorization:localStorage.getItem("Authorization")
     }
   })
 }
 
 const updateCream = (id, menu, date, temperature, state) => {
-  return axios.post(API_URL + localStorage.getItem("user") + "/update/" + id , {
+  return axios.patch(API_URL + localStorage.getItem("user") + "/update/" + id , {
     id,
     menu,
     date,

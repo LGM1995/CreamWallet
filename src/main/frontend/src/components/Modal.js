@@ -6,24 +6,20 @@ import * as Yup from "yup";
 import {updateCream} from "../slices/cream";
 
 const Modal = ({modalClose, id}) => {
-  console.log(id);
-  const { user } = useSelector((state) => state.auth);
-  const { jwtToken } = useSelector((state) => state.auth);
   const [successful, setSuccessful] = useState(false);
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
-  const initialValues = {
-    id: "",
+
+  const initial = {
+    id: id,
     menu: "",
     date: "",
     temperature: "",
     state: "",
-    username: user,
-    token: jwtToken
   };
 
-  const validationSchema = Yup.object().shape({
+  const validation = Yup.object().shape({
     menu: Yup.string()
       .test(
         "len",
@@ -48,17 +44,17 @@ const Modal = ({modalClose, id}) => {
         "len",
         "상태는 HOT:지출(0), ICE:수입(1) 중 하나여야 합니다. ",
         (val) =>
-          val && val == 0 || val == 1
+          val && val === 0 || val === 1
       )
       .required("상태를 입력해 주세요!"),
   });
 
-  const handleRegister = (formValue) => {
-    const { menu, date ,temperature, state, username, token} = formValue;
+  const handleRegi = (formValue) => {
+    const { id, menu, date ,temperature, state} = formValue;
 
     setSuccessful(false);
 
-    dispatch(updateCream({ menu, date ,temperature, state, username, token }))
+    dispatch(updateCream({ id, menu, date ,temperature, state }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -79,20 +75,38 @@ const Modal = ({modalClose, id}) => {
     <div className={styles.modal__container} onClick={onCloseModal}>
       <div className={styles.modal}>
         <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleRegister}
+          initialValues={initial}
+          validationSchema={validation}
+          onSubmit={handleRegi}
         >
           {({ errors, touched }) => (
             <Form>
               {!successful && (
                 <div>
+                  {/*<div className="form-group">*/}
+                  {/*  <label htmlFor="id">id</label>*/}
+                  {/*  <Field*/}
+                  {/*    name="id"*/}
+                  {/*    type="text"*/}
+                  {/*    value={id}*/}
+                  {/*    className={*/}
+                  {/*      "form-control" +*/}
+                  {/*      (errors.id && touched.id*/}
+                  {/*        ? " is-invalid"*/}
+                  {/*        : "")*/}
+                  {/*    }*/}
+                  {/*  />*/}
+                  {/*  <ErrorMessage*/}
+                  {/*    name="id"*/}
+                  {/*    component="div"*/}
+                  {/*    className="invalid-feedback"*/}
+                  {/*  />*/}
+                  {/*</div>*/}
                   <div className="form-group">
                     <label htmlFor="menu">menu</label>
                     <Field
                       name="menu"
                       type="text"
-                      value=""
                       className={
                         "form-control" +
                         (errors.menu && touched.menu
@@ -124,6 +138,7 @@ const Modal = ({modalClose, id}) => {
                       component="div"
                       className="invalid-feedback"
                     />
+                  </div>
 
                     <div className="form-group">
                       <label htmlFor="temperature">temperature</label>
@@ -160,7 +175,6 @@ const Modal = ({modalClose, id}) => {
                         className="invalid-feedback"
                       />
                     </div>
-                  </div>
 
                   <div className="form-group">
                     <button type="submit" className="btn btn-primary btn-block">
@@ -185,6 +199,7 @@ const Modal = ({modalClose, id}) => {
             </div>
           </div>
         )}
+
         <button className={styles.modal__button} onClick={modalClose}> Modal Close</button>
       </div>
     </div>

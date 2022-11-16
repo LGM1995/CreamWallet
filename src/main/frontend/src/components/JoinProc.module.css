@@ -1,4 +1,4 @@
-.container {
+.join_container {
     width: 320px;
     margin-top: 25px;
     margin-left: auto;
@@ -8,14 +8,16 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 18px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.signup {
+.join_logo_font {
     position: absolute;
     width: 146px;
     height: 100px;
-    left: 87px;
-    top: 35px;
 
     font-family: 'Strong';
     font-style: normal;
@@ -25,6 +27,20 @@
     text-align: center;
 
     color: #776D61;
+}
+
+.join_error_msg {
+    position: absolute;
+    color: red;
+    font-weight: 200;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.join_form_group {
+    position: relative;
+    margin-bottom: 25px;
 }
 
 .formContainer {

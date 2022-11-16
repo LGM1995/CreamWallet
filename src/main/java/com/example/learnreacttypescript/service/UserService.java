@@ -33,6 +33,10 @@ public class UserService {
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
 
+        if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail()).orElse(null) != null) {
+            throw new DuplicateMemberException("중복된 이메일 입니다!");
+        }
+
         Authority authority = Authority.builder()
                 .authorityName("ROLE_USER")
                 .build();

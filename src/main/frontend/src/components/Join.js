@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import styles from "./JoinProc.module.css"
 import * as Yup from "yup";
 
 import { register } from "../slices/auth";
 import { clearMessage } from "../slices/message";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Join = () => {
   const [successful, setSuccessful] = useState(false);
@@ -29,30 +30,30 @@ const Join = () => {
     username: Yup.string()
       .test(
         "len",
-        "The username must be between 3 and 20 characters.",
+        "아이디는 3 에서 10자 사이 입니다!",
         (val) =>
-          val && val.toString().length >= 3 && val.toString().length <= 20
+          val && val.toString().length >= 3 && val.toString().length <= 10
       )
-      .required("This field is required!"),
+      .required("아이디를 입력해 주세요!"),
     name: Yup.string()
       .test(
         "len",
-        "The username must be between 3 and 20 characters.",
+        "이름은 2자 이상 10자 이하 입니다!",
         (val) =>
-          val && val.toString().length >= 3 && val.toString().length <= 20
+          val && val.toString().length >= 2 && val.toString().length <= 10
       )
-      .required("This field is required!"),
+      .required("이름을 입력해 주세요!"),
     email: Yup.string()
-      .email("This is not a valid email.")
-      .required("This field is required!"),
+      .email("이메일 형식이 아닙니다!")
+      .required("이메일을 입력해 주세요!"),
     password: Yup.string()
       .test(
         "len",
-        "The password must be between 6 and 40 characters.",
+        "비밀번호는 6자 이상 20자 이하여야 합니다!",
         (val) =>
-          val && val.toString().length >= 6 && val.toString().length <= 40
+          val && val.toString().length >= 6 && val.toString().length <= 20
       )
-      .required("This field is required!"),
+      .required("비밀번호를 입력해 주세요!"),
   });
 
   const handleRegister = (formValue) => {
@@ -73,13 +74,8 @@ const Join = () => {
   };
 
   return (
-    <div className="col-md-12 signup-form">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+    <div className={styles.join_container}>
+      <div className={styles.join_logo_font}>Sign Up</div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -89,105 +85,74 @@ const Join = () => {
             <Form>
               {!successful && (
                 <div>
-                  <div className="form-group">
-                    <label htmlFor="username">Username</label>
+                  <div className={styles.join_form_group}>
                     <Field
                       name="username"
                       type="text"
-                      className={
-                        "form-control" +
-                        (errors.username && touched.username
-                          ? " is-invalid"
-                          : "")
-                      }
+                      placeholder="ID"
                     />
                     <ErrorMessage
                       name="username"
                       component="div"
-                      className="invalid-feedback"
+                      className={styles.join_error_msg}
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                  <div className={styles.join_form_group}>
                     <Field
                       name="password"
                       type="password"
-                      className={
-                        "form-control" +
-                        (errors.password && touched.password
-                          ? " is-invalid"
-                          : "")
-                      }
+                      placeholder="PW"
                     />
                     <ErrorMessage
                       name="password"
                       component="div"
-                      className="invalid-feedback"
+                      className={styles.join_error_msg}
                     />
-
-                    <div className="form-group">
-                      <label htmlFor="name">name</label>
-                      <Field
-                        name="name"
-                        type="text"
-                        className={
-                          "form-control" +
-                          (errors.name && touched.name
-                            ? " is-invalid"
-                            : "")
-                        }
-                      />
-                      <ErrorMessage
-                        name="username"
-                        component="div"
-                        className="invalid-feedback"
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <Field
-                        name="email"
-                        type="email"
-                        className={
-                          "form-control" +
-                          (errors.email && touched.email ? " is-invalid" : "")
-                        }
-                      />
-                      <ErrorMessage
-                        name="email"
-                        component="div"
-                        className="invalid-feedback"
-                      />
-                    </div>
-
                   </div>
 
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-block">
+                  <div className={styles.join_form_group}>
+                    <Field
+                      name="name"
+                      type="text"
+                      placeholder="name"
+                    />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className={styles.join_error_msg}
+                    />
+                  </div>
+
+                  <div className={styles.join_form_group}>
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className={styles.join_error_msg}
+                    />
+                  </div>
+
+                  <div className={styles.join_form_group}>
+                    <button type="submit">
                       Sign Up
                     </button>
+                    {message && (
+                      <div className={styles.join_error_msg}>
+                        {message}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
             </Form>
           )}
         </Formik>
-      </div>
 
-      {message && (
-        <div className="form-group">
-          <div
-            className={
-              successful ? "alert alert-success" : "alert alert-danger"
-            }
-            role="alert"
-          >
-            {message}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

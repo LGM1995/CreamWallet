@@ -103,17 +103,11 @@ const Cream = () => {
   }
 
   function List() {
-    const cream = {
-      id: "",
-      menu: "",
-      date: "",
-      temperature: "",
-      state: "",
-    }
-
+    const [creamId , setCreamId] = useState();
     const [modalOpen, setModalOpen] = useState(false);
-    const modalClose = () => {
+    const modalClose = (e) => {
       setModalOpen(!modalOpen);
+      setCreamId(e.target.id);
     }
 
     const re = [...creams]
@@ -121,8 +115,11 @@ const Cream = () => {
       re.sort((a,b) => new Date(a.date) - new Date(b.date)).map(item => (
       <div key={item.id}>
         <p>{item.menu} {time(item.date)} {item.state} {(item.temperature).toLocaleString('ko-KR')}</p>
-        <button onClick={modalClose}>수정</button>
-        { modalOpen && <Modal id={item.id} modalClose={modalClose}></Modal>}
+        <button
+          id={item.id}
+          onClick={modalClose}>수정</button>
+        { modalOpen && <Modal id={creamId}
+                              modalClose={modalClose}></Modal>}
         <button onClick={() => dispatch(deleteCream({id:item.id}))}>삭제</button>
       </div>
     )))
