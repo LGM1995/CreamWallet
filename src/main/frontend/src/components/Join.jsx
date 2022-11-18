@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import styles from "./JoinProc.module.css"
+import styles from "./Join.module.css"
 import * as Yup from "yup";
 
 import { register } from "../slices/auth";
@@ -30,7 +30,7 @@ const Join = () => {
     username: Yup.string()
       .test(
         "len",
-        "아이디는 3 에서 10자 사이 입니다!",
+        "아이디는 3 에서 10자 사이입니다!",
         (val) =>
           val && val.toString().length >= 3 && val.toString().length <= 10
       )
@@ -38,7 +38,7 @@ const Join = () => {
     name: Yup.string()
       .test(
         "len",
-        "이름은 2자 이상 10자 이하 입니다!",
+        "이름은 2자 이상 10자 이하입니다!",
         (val) =>
           val && val.toString().length >= 2 && val.toString().length <= 10
       )
@@ -49,7 +49,7 @@ const Join = () => {
     password: Yup.string()
       .test(
         "len",
-        "비밀번호는 6자 이상 20자 이하여야 합니다!",
+        "비밀번호는 6자 이상 20자 이하입니다!",
         (val) =>
           val && val.toString().length >= 6 && val.toString().length <= 20
       )
@@ -152,7 +152,7 @@ const Join = () => {
             </Form>
           )}
         </Formik>
-
+      <Link to="/login" className={styles.join_link_container}>Back</Link>
     </div>
   );
 };

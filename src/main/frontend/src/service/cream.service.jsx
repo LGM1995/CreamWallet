@@ -2,8 +2,24 @@ import axios from "axios";
 
 const API_URL = "/api/";
 //
-const getCreams = (username, token) => {
-  return axios.get(API_URL + username, {
+const getCreams = (username, token, year) => {
+  return axios.get(API_URL + username + "/" + year, {
+    headers: {
+      Authorization:token
+    }
+  });
+};
+
+const getCost = (username, token, year) => {
+  return axios.get(API_URL + username +"/cost/" + year, {
+    headers: {
+      Authorization:token
+    }
+  });
+};
+
+const getYearList = (username, token) => {
+  return axios.get(API_URL + username +"/yearlist", {
     headers: {
       Authorization:token
     }
@@ -47,10 +63,11 @@ const deleteCream = (id) => {
 
 const CreamService = {
   getCreams,
+  getCost,
+  getYearList,
   scoop,
   deleteCream,
   updateCream,
-//   getAdminBoard,
 }
 
 export default CreamService;

@@ -14,8 +14,23 @@
     flex-direction: column;
 }
 
+.join_link_container {
+    position: relative;
+    width: 151px;
+    height: 15px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #776D61;
+}
+
 .join_logo_font {
-    position: absolute;
+    position: relative;
     width: 146px;
     height: 100px;
 

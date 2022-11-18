@@ -1,5 +1,6 @@
 package com.example.learnreacttypescript.service;
 
+import com.example.learnreacttypescript.dto.CostDto;
 import com.example.learnreacttypescript.entity.Cream;
 import com.example.learnreacttypescript.entity.User;
 import com.example.learnreacttypescript.dto.CreamDto;
@@ -9,13 +10,16 @@ import com.example.learnreacttypescript.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CreamService {
     private final CreamRepository creamRepository;
     private final UserRepository userRepository;
+
 
     public CreamService(CreamRepository creamRepository, UserRepository userRepository) {
         this.creamRepository = creamRepository;
@@ -27,6 +31,39 @@ public class CreamService {
         return creamRepository.findByUsername(username).stream()
                 .map(cream -> CreamDto.fromEntity(cream))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<Integer> readYearList(String username) {
+         List<Integer> yearList = creamRepository.findByUsername(username).stream()
+                .map(year -> year.getDate().toLocalDateTime().getYear())
+                .distinct()
+                .collect(Collectors.toList());
+        return yearList;
+    }
+
+    @Transactional
+    public List<CreamDto> creamListWithYear(String username, Long year) {
+        return creamRepository.findByUsernameWithYear(username, year).stream()
+                .map(cream -> CreamDto.fromEntity(cream))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public CostDto readCost(String username, Long year) {
+        Long ice = creamRepository.findByUsernameWithYear(username, year).stream()
+                .filter(cream -> cream.getState() == 0)
+                .mapToLong(i -> i.getTemperature())
+                .sum();
+                // 수입(0) 상태의 비용을 더함
+
+        Long hot = creamRepository.findByUsernameWithYear(username, year).stream()
+                .filter(cream -> cream.getState() == 1)
+                .mapToLong(i -> i.getTemperature())
+                .sum();
+                // 지출(1) 상태의 비용을 더함
+
+        return new CostDto(ice, hot, ice-hot);
     }
 
     @Transactional

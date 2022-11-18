@@ -78,17 +78,18 @@ const creamSlice = createSlice({
   },
   extraReducers: {
     [createCream.fulfilled]: (state, action) => {
+      window.location.reload();
     },
     [createCream.rejected]: (state, action) => {
     },
     [deleteCream.fulfilled]: (state, action) => {
-
+      window.location.reload();
     },
     [deleteCream.rejected]: (state, action) => {
 
     },
     [updateCream.fulfilled]: (state, action) => {
-
+      window.location.reload();
     },
     [updateCream.rejected]: (state, action) => {
 

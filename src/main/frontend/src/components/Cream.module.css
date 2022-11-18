@@ -1,0 +1,506 @@
+.cream_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cream_logout {
+    position: relative;
+    width: 320px;
+    height: 64px;
+    margin-top: 12px;
+    cursor: pointer;
+
+    background: rgba(238, 3, 3, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+}
+.cream_logout:hover {
+    background: rgba(238, 3, 3, 1);
+}
+
+.cream_content_container {
+    position: relative;
+    width: 320px;
+    min-height: 462px;
+    margin-top: 25px;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    background: #93C8B4;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+}
+
+.cream_scoop_container{
+    position: relative;
+    width: 320px;
+    height: 378px;
+
+    background: #93C8B4;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.cream_scoop_logo {
+    position: relative;
+    width: 272px;
+    height: 62px;
+    margin-top: 0px;
+    margin-bottom: 18px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+}
+.cream_error_msg {
+    position: absolute;
+    color: red;
+    font-weight: 200;
+    font-size: 12px;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.cream_form_group {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.cream_form_scoop_group {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.cream_state_group {
+    position: relative;
+    width: 272px;
+    display: flex;
+    justify-content: left;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.scoop_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    position: relative;
+    margin-right: 20px;
+    width: 126px;
+    height: 40px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+
+    background: rgba(0, 194, 236, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.scoop_button:disabled {
+    opacity: 0.5;
+}
+.cream_add_scoop_button {
+    position: relative;
+    width: 320px;
+    height: 64px;
+
+    background: #93C8B4;
+    border: 1px solid rgb(0,0,0,0.1);
+    border-radius: 18px;
+    cursor: pointer;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+}
+.cream_add_scoop_button:hover {
+    background: rgba(102, 160, 145, 1);
+}
+
+.cancel_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+
+    position: relative;
+    width: 126px;
+    height: 40px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+
+    background: rgba(238, 3, 3, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.cancel_button:disabled {
+    opacity: 0.5;
+}
+
+input {
+    position: relative;
+    align-items: center;
+}
+
+.cream_input[type=text] {
+    box-sizing: border-box;
+
+    position: relative;
+    padding-left: 20px;
+    width: 272px;
+    height: 50px;
+
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+
+.cream_input[type=date] {
+    box-sizing: border-box;
+
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 272px;
+    height: 50px;
+
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+input::-webkit-input-placeholder {
+    color: white;
+    font-style: normal;
+}
+input:-ms-input-placeholder {
+    color: white;
+    font-style: normal;
+}
+
+.cream_card_container {
+    position: relative;
+    width: 272px;
+    height: 50px;
+    margin-bottom: 10px;
+    display: flex;
+
+    background: rgba(102, 160, 140, 0.8);
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-direction: column;
+}
+
+.cream_card_header {
+    margin-top: 6px;
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 13px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    align-items: center;
+
+    color: #FFFFFF;
+}
+.cream_card_header_date {
+
+}
+.cream_card_header_button {
+
+}
+.span_button{
+    cursor: pointer;
+}
+.cream_card_body {
+    height: 25px;
+    margin-top: 2px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.cream_card_body_menu {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 450;
+    font-size: 20px;
+    align-items: center;
+
+    color: #FFFFFF;
+}
+.cream_card_body_temperature1 {
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+
+    align-items: center;
+    text-align: right;
+    -webkit-text-stroke: 1px rgba(55,55,55,0.1);
+
+    color: #EE0303;
+
+}
+
+.cream_card_body_temperature0 {
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+
+    align-items: center;
+    text-align: right;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.2);
+
+    color: #00c2ec;
+
+}
+
+.cream_header_container {
+    position: relative;
+    margin-top: 35px;
+    margin-bottom: 24px;
+    width: 272px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cream_header_top_container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 272px;
+    height: 30px;
+}
+
+.cream_header_top_logo {
+    position: relative;
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    color: #776D61;
+
+}
+.cream_header_top_checkbox{
+    position: relative;
+    width: 51px;
+    height: 19px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    display: flex;
+
+    color: #FFFFFF;
+
+}
+
+.cream_header_temperature0 {
+    width: 272px;
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    text-align: left;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.3);
+
+    color: #EE0303;
+
+
+}
+
+.cream_header_temperature1 {
+    width: 272px;
+    font-family: 'Strong';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    text-align: left;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.3);
+
+    color: #00C2EC;
+
+}
+
+.cream_header_cost_container {
+    position: relative;
+    display: flex;
+    width: 272px;
+    height: 50px;
+
+    background: rgba(102, 160, 145, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.cream_header_ice_container{
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 136px;
+    height: 40px;
+
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.cream_header_ice_title {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #FFFFFF;
+
+}
+
+.cream_header_ice_cost {
+    font-family: 'Strong';
+    margin-top: 3px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+
+    color: #00C2EC;
+
+    -webkit-text-stroke: 1px rgba(0,0,0,0.2);
+}
+
+.cream_header_hot_container {
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 136px;
+    height: 40px;
+}
+
+.cream_header_hot_title{
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #FFFFFF;
+
+}
+
+.cream_header_hot_cost{
+    font-family: 'Strong';
+    margin-top: 3px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+
+    color: #EE0303;
+
+    -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+}

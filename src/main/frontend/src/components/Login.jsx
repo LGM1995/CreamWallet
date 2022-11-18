@@ -7,7 +7,6 @@ import styles from "./Login.module.css"
 
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
-import Join from "./Join";
 
 const Login = () => {
   let navigate = useNavigate();

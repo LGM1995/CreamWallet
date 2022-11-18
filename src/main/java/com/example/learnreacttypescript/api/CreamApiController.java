@@ -1,5 +1,6 @@
 package com.example.learnreacttypescript.api;
 
+import com.example.learnreacttypescript.dto.CostDto;
 import com.example.learnreacttypescript.dto.CreamDto;
 import com.example.learnreacttypescript.service.CreamService;
 import com.example.learnreacttypescript.service.UserService;
@@ -8,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -26,6 +29,27 @@ public class CreamApiController {
     public ResponseEntity<List<CreamDto>> read(@PathVariable String username) {
         List<CreamDto> creamDtos = creamService.creamList(username);
         return ResponseEntity.status(HttpStatus.OK).body(creamDtos);
+    }
+
+    @GetMapping("/{username}/{year}")
+//    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<List<CreamDto>> readCreamList(@PathVariable String username, @PathVariable Long year) {
+        List<CreamDto> costDto = creamService.creamListWithYear(username, year);
+        return ResponseEntity.status(HttpStatus.OK).body(costDto);
+    }
+
+    @GetMapping("/{username}/yearlist")
+//    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<List<Integer>> readYearList(@PathVariable String username) {
+        List<Integer> yearList = creamService.readYearList(username);
+        return ResponseEntity.status(HttpStatus.OK).body(yearList);
+    }
+
+    @GetMapping("/{username}/cost/{year}")
+//    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<CostDto> readCost(@PathVariable String username, @PathVariable Long year) {
+        CostDto costDto = creamService.readCost(username, year);
+        return ResponseEntity.status(HttpStatus.OK).body(costDto);
     }
 
     @PostMapping("/{username}/scoop")

@@ -72,6 +72,10 @@ public class SecurityConfig {
                 .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/auth/signup").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/api/rjsahr/2022").permitAll()
+                .antMatchers("/api/rjsahr/cost/2022").permitAll()
+                .antMatchers("/api/rjsahr/cost/2021").permitAll()
+                .antMatchers("/api/rjsahr/yearlist").permitAll()
 
                 .anyRequest().authenticated()
 
