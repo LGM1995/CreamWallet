@@ -3,7 +3,8 @@
 [CreamWallet 바로가기](http://gunmok.i234.me:23001/login)
 test id : test , test pw :test11
 
-배경 이미지 (배경)
+<img width="1080" alt="메인화면(이미지)" src="https://user-images.githubusercontent.com/110650972/202840301-bead49cc-5c54-4751-8299-f88fae86fada.png">
+
 ## 목차
 * [소개](#소개)
     *  개발 목적
@@ -77,24 +78,21 @@ test id : test , test pw :test11
 <summary>로그인 및 회원가입 <span style="color: #0000ff">(클릭시 이미지가 나옵니다)</span></summary>
 
 #### 1. 로그인 화면
-이미지
+<img width="1080" alt="로그인화면(이미지)" src="https://user-images.githubusercontent.com/110650972/202840320-a2d711bb-c87a-4b59-b25c-a7f6e36d52d7.png">
 
-#### 1-1. 로그인 필터 (빈 데이터)
-이미지
-
-#### 1-2. 로그인 필터 (잘못된 정보 로그인)
-이미지
-
+#### 1-1. 로그인 필터 (잘못된 정보 입력)
+<img width="1080" alt="로그인필터-빈데이터(이미지)" src="https://user-images.githubusercontent.com/110650972/202840329-6627d6e8-d5c3-435d-90ae-0fd826da22c1.png">
 
 #### 2. 회원가입
-회원가입
-
+<img width="1080" alt="회원가입화면(이미지)" src="https://user-images.githubusercontent.com/110650972/202840386-f7314f10-c759-4a74-9582-f06a6e80f77a.png">
 
 #### 2-1. 회원가입 필터
-회원가입
+![회원가입-빈데이터짤(수정)](https://user-images.githubusercontent.com/110650972/202840399-5ef30dee-d981-4da0-a80f-3e562483f4bc.gif)
+
 
 #### 2-2. 회원가입 필터 (중복된 아이디로 가입)
-회원가입
+![중복회원가입짤(수정)](https://user-images.githubusercontent.com/110650972/202840417-fadad9c3-91bd-46a2-94b2-150a26c94476.gif)
+
 
 </details>
 <br>
@@ -102,27 +100,25 @@ test id : test , test pw :test11
 <summary>가계부 CRUD <span style="color: #0000ff">(클릭시 이미지가 나옵니다)</span></summary>
 
 #### 1. 메인 페이지
-
+<img width="1080" alt="메인화면(이미지)" src="https://user-images.githubusercontent.com/110650972/202840426-55fdd303-d587-4c0c-8d16-88627076b3ca.png">
 
 #### 2. 수입, 지출 등록
+![등록짤(수정)](https://user-images.githubusercontent.com/110650972/202840450-bd89228e-6ceb-4365-8eb4-3bca6285adb8.gif)
 
+#### 3. 수정 (모달창)
+<img width="1080" alt="수정화면(이미지)" src="https://user-images.githubusercontent.com/110650972/202840464-2969c12f-2a98-4d49-8df5-6b24aaec179a.png">
 
-#### 2-1. 수입, 지출 등록 필터
-
-
-#### 3. 수정
-
-
-#### 3-1. 수정 필터
-
+#### 3-1. 수정과정
+![수정짤(수정)](https://user-images.githubusercontent.com/110650972/202840505-5f836531-3878-4a6f-b125-052808b8c661.gif)
 
 #### 4. 삭제
-
+![삭제짤(수정)](https://user-images.githubusercontent.com/110650972/202840512-b6852916-5fab-45a5-8bfe-26dc326374a8.gif)
 
 #### 5. 년도 필터
-
+![년도필터짤(수정)](https://user-images.githubusercontent.com/110650972/202840515-5a7c8ecb-c938-4164-aaf9-444f309b33d1.gif)
 
 #### 6. 로그아웃
+![로그아웃짤(수정)](https://user-images.githubusercontent.com/110650972/202840519-98c91c8c-25cc-4f66-a378-08edb4d68cf2.gif)
 
 </details>
 
