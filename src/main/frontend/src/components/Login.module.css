@@ -58,6 +58,7 @@ button {
     position: relative;
     width: 203px;
     height: 48px;
+    cursor: pointer;
 
     font-family: 'Noto Sans';
     font-style: normal;
@@ -70,6 +71,10 @@ button {
     background: rgba(180, 145, 115, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+
+button:hover {
+    background: rgba(180, 145, 115, 1);
 }
 
 

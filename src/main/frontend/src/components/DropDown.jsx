@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import styled, { css } from "styled-components";
 import useDetectClose from "../hooks/useDetectClose";
-import {setYear} from "../slices/yearList";
 
 
 const DropDown = ({year, yearList, selectYear}) => {

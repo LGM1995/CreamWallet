@@ -21,7 +21,7 @@ public class Cream {
     private String menu;
     @Column (nullable = false)
     private Timestamp date;
-    @Column (nullable = false, length = 2, columnDefinition = "INT CHECK (state = 0 or state = 1)")
+    @Column (nullable = false, length = 2)
     private Long state;
     @Column (nullable = false)
     private Long temperature;
