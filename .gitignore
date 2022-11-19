@@ -26,7 +26,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-!**/readme_img/
+readme_img/
 
 application.properties
 
