@@ -27,7 +27,8 @@ out/
 !**/src/test/**/out/
 
 readme_img/
-
+package.json
+package-lock.json
 application.properties
 
 ### NetBeans ###
