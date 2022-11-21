@@ -125,6 +125,7 @@ test id : test , test pw :test11
 ## 결론
 
 ### 1. 보완점
+* redux-toolkit 과 React-Hook의 분리
 * refresh token의 사용(현재 access token만 헤더로 관리중)
 * 사용자 알림창 추가(Sweetalert2)
 * 년도 리스트 순서대로 출력
