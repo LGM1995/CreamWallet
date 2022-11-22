@@ -19,17 +19,14 @@ const Cream = () => {
   const [ dropdown, setDropdown ] = useState(false);
   const [ show, setShow ] = useState(false);
   const { year,yearList } = useSelector((state) => state.yearList);
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
-  const { user } = useSelector((state) => state.auth);
-  const { jwtToken } = useSelector((state) => state.auth);
+  const { user, jwtToken, isLoggedIn } = useSelector((state) => state.auth);
   const { creams } = useSelector((state) => state.cream);
   const { cost } = useSelector((state) => state.cost);
   const dispatch = useDispatch();
 
   const re = [...creams]
 
-  const { user: currentUser } = useSelector((state) => state.auth);
 
   const logOut = useCallback(() => {
     localStorage.removeItem("user");
