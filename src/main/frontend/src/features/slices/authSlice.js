@@ -3,6 +3,9 @@ import { setMessage } from "../../slices/message";
 
 import AuthService from "../../service/auth.service";
 
+const username = localStorage.getItem("username");
+const jwtToken = localStorage.getItem("Authorization");
+
 export const register = createAsyncThunk(
   "auth/register",
   async ({ username, password, name, email }, thunkAPI) => {
@@ -30,6 +33,9 @@ export const login = createAsyncThunk(
       const response = await AuthService.login(username, password);
       localStorage.setItem("Authorization", response.headers.get("authorization"))
       // 헤더에 담긴 쿠키 값을 localStorage에 저장한다.
+      localStorage.setItem("username", response.data.username);
+      // store는 새로고침 하면 초기화 되는 속성이 있기 때문에 로그인을 유지하기 위한 기본 username과 isLoggedIn 상태를
+      // localStroage에 저장한다.
       return response.data;
     } catch (error) {
       const message =
@@ -45,8 +51,12 @@ export const login = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState = username ? {
   // 초기 값을 정의한다. ex) value: 0,
+  isLoggedIn: true,
+  username,
+  jwtToken,
+} : {
   isLoggedIn: false,
   username: null,
   id: null,
@@ -54,7 +64,6 @@ const initialState = {
   email: null,
   authorityDtoSet: [],
   jwtToken: null
-
 };
 
 const authSlice = createSlice({
