@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "./message";
+import { setMessage } from "../../slices/message";
 
-import CreamService from "../service/cream.service"
+import CreamService from "../../service/cream.service"
 
 export const createCream = createAsyncThunk(
   "cream/create",
-  async ({ menu, date, temperature, state }, thunkAPI) => {
+  async ({ username, menu, date, temperature, state }, thunkAPI) => {
     try {
-      const response = await CreamService.scoop( menu, date, temperature, state );
+      const response = await CreamService.scoop( username, menu, date, temperature, state );
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -65,7 +65,18 @@ export const deleteCream = createAsyncThunk(
 
 
 const initialState = {
-  creams: [], cream: null
+  creams: [],
+  // 받아올 가계부 리스트를 creams로 배열에 담는다.
+  // yearList: [],
+  // // 사용자가 등록한 가계부들의 년도 목록
+  // year: new Date().getFullYear(),
+  // // 화면에 로드할 기본 년도는 현재 년도를 기본값으로 한다.
+  // ice: "",
+  // // 수입
+  // hot: "",
+  // // 지출
+  // sum: ""
+  // // 계
 }
 
 const creamSlice = createSlice({
@@ -74,15 +85,34 @@ const creamSlice = createSlice({
   reducers: {
     getCreamList:(state, action) => {
       state.creams = action.payload;
+    },
+    setYearList:(state, action) => {
+      state.yearList = action.payload;
+    },
+    setYear:(state, action) => {
+      state.year = action.payload;
+    },
+    setCost:(state, action) => {
+      state.ice = action.payload.ice;
+      state.hot = action.payload.hot;
+      state.sum = action.payload.ice - action.payload.hot;
     }
   },
   extraReducers: {
     [createCream.fulfilled]: (state, action) => {
-      window.location.reload();
+      state.creams.push(action.payload);
+      // if(action.payload.state == 0 ) {
+      //   state.ice += action.payload.temperature;
+      //   state.sum += action.payload.temperature;
+      // } else if (action.payload.state == 1) {
+      //   state.hot += action.payload.temperature;
+      //   state.sum -= action.payload.temperature;
+      // }
     },
     [createCream.rejected]: (state, action) => {
     },
     [deleteCream.fulfilled]: (state, action) => {
+      // state.creams.filter((item) => item.id !== action.payload.id);
       window.location.reload();
     },
     [deleteCream.rejected]: (state, action) => {
@@ -97,6 +127,5 @@ const creamSlice = createSlice({
   },
 });
 
-const { reducer } = creamSlice;
-export const {getCreamList, set} = creamSlice.actions;
-export default reducer;
+export const {getCreamList} = creamSlice.actions;
+export default creamSlice.reducer;
