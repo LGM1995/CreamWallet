@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<UserDto> authorize(@Valid @RequestBody LoginDto loginDto) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -46,10 +46,11 @@ public class AuthController {
 
         String username = loginDto.getUsername();
 
-        Long id = userService.getUserWithAuthorities(username).getId();
+//        Long id = userService.getUserWithAuthorities(username).getId();
+        UserDto userDto = userService.getUserWithAuthorities(username);
         System.out.println(loginDto.getUsername() + " 님이 로그인 했습니다.");
 
-        return new ResponseEntity<>(new TokenDto(jwt, username, id), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(userDto, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
