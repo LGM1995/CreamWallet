@@ -28,6 +28,11 @@ public class JwtFilter extends OncePerRequestFilter {
     public JwtFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
     }
+
+    // 실제 필터링 로직은 doFilterInternal 에 들어감
+    // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
+    // doFilter를 사용하게 되면 필터에 의한 서블렛이 실행되는 동안 다른 서플렛이 같은 필터에 접근하면 필터가 다시 실행된다.
+    // 모든 서블렛 접근에 대해 한번만 필터의 역할을 수행하도록 OncePerRequestFilter를 상속받아 doFilterUnternal을 구현
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
@@ -36,9 +41,11 @@ public class JwtFilter extends OncePerRequestFilter {
         // 1. Request Header 에서 토큰을 꺼냄
         String jwt = resolveToken(httpServletRequest);
 
-        // 2. validateToken 으로 유효성을 검사
+        // 2. URI 정보를 저장하기 위해 uri를 얻음
         String requestURI = httpServletRequest.getRequestURI();
 
+        // 3. validateToken 으로 유효성을 검사
+        // 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
