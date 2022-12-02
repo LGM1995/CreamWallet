@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -31,27 +33,25 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> authorize(@Valid @RequestBody LoginDto loginDto) {
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.createToken(authentication);
-
+    public ResponseEntity<UserDto> authorize(HttpServletResponse response, @Valid @RequestBody LoginDto loginDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        TokenDto tokenDto = userService.login(loginDto);
+        httpHeaders.add("Authorization", tokenDto.getAccessToken());
+
+        Cookie cookie = new Cookie("refreshToken", tokenDto.getRefreshToken());
+        cookie.setMaxAge(1000 * 60 * 60 * 24 * 7);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
 
         String username = loginDto.getUsername();
 
-//        Long id = userService.getUserWithAuthorities(username).getId();
         UserDto userDto = userService.getUserWithAuthorities(username);
         System.out.println(loginDto.getUsername() + " 님이 로그인 했습니다.");
 
         return new ResponseEntity<>(userDto, httpHeaders, HttpStatus.OK);
     }
+
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signup(
