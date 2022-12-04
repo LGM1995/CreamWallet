@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/auth/signup").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/api/user").permitAll()
 
                 .anyRequest().authenticated()
 
