@@ -118,6 +118,8 @@ public class TokenProvider implements InitializingBean {
 
     // 토큰을 복호화 하여 accessToken을 찾기 위한 메서드
     private Claims parseClaims(String accessToken) {
+가        // 클레임이란 JWT 안에 있는 정보의 한 조각으로
+        // "key" : "value"값으로 저장되어 있다.
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
