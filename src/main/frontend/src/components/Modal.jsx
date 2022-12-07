@@ -3,7 +3,7 @@ import styles from './Modal.module.css'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import * as Yup from "yup";
-import {updateCream} from "../slices/cream";
+import {updateCream} from "../features/slices/creamSlice";
 
 const Modal = ({modalClose, id}) => {
   const [successful, setSuccessful] = useState(false);
