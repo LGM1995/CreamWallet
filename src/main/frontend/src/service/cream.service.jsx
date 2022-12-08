@@ -26,8 +26,8 @@ const getYearList = (username, token) => {
   });
 };
 
-const scoop = (menu, date, temperature, state) => {
-  return axios.post(API_URL + localStorage.getItem("user") + "/scoop", {
+const scoop = (username, menu, date, temperature, state) => {
+  return axios.post(API_URL + username + "/scoop", {
     menu,
     date,
     temperature,
