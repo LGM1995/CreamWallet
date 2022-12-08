@@ -3,52 +3,53 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import CreamService from "../service/cream.service";
 import {clearMessage} from "../slices/message";
-import {createCream, deleteCream, getCreamList} from "../slices/cream";
+import {createCream, deleteCream, getCreamList} from "../features/slices/creamSlice";
+import {setCost} from "../slices/cost";
+import {setYear,setYearList} from "../slices/yearList";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Modal from "./Modal";
 import styles from "./Cream.module.css"
-import {setCost} from "../slices/cost";
-import {setYear, setYearList} from "../slices/yearList";
 import DropDown from "./DropDown";
-import {logout} from "../slices/auth";
+import {logout} from "../features/slices/authSlice";
 
 
 const Cream = () => {
   const [successful, setSuccessful] = useState(false);
   const [ dropdown, setDropdown ] = useState(false);
   const [ show, setShow ] = useState(false);
-  const { year,yearList } = useSelector((state) => state.yearList);
   const { message } = useSelector((state) => state.message);
-  const { user, jwtToken, isLoggedIn } = useSelector((state) => state.auth);
-  const { creams } = useSelector((state) => state.cream);
+  const { username, jwtToken, isLoggedIn } = useSelector((state) => state.auth);
+  const { creams} = useSelector((state) => state.cream);
   const { cost } = useSelector((state) => state.cost);
+  const { year,yearList } = useSelector((state) => state.yearList);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
-  const re = [...creams]
 
+  let copyCreams = [...creams]
 
   const logOut = useCallback(() => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("Authorization")
     dispatch(logout);
+    localStorage.clear();
+    // 로그인을 유지하던 값을 전부 삭제함
     return window.location.replace("/login");
   }, [dispatch]);
 
 
   useEffect(() => {
     (async () => {
-      const res = (await (CreamService.getCreams( user, jwtToken, year))).data
+      const res = (await (CreamService.getCreams( username && username, jwtToken, year))).data
       dispatch(getCreamList(res));
     })();
 
     (async () => {
-      const cost = (await (CreamService.getCost( user, jwtToken, year))).data
+      const cost = (await (CreamService.getCost( username, jwtToken, year))).data
       dispatch(setCost(cost));
     })();
 
     (async () => {
-      const yearList = (await (CreamService.getYearList( user, jwtToken))).data
+      const yearList = (await (CreamService.getYearList( username, jwtToken))).data
       dispatch(setYearList(yearList));
     })();
   }, [year],[creams])
@@ -80,11 +81,13 @@ const Cream = () => {
   }
 
   if (!isLoggedIn) {
+    // 로그인 상태가 false라면 바로 로그인 페이지로 이동
     return <Navigate to="/login" />;
   }
 
   function onShow() {
     setShow(true);
+    setSuccessful(false);
   }
 
   function offShow()
@@ -127,10 +130,15 @@ const Cream = () => {
 
     setSuccessful(false);
 
-    dispatch(createCream({ menu, date ,temperature, state }))
+    dispatch(createCream({ username, menu, date ,temperature, state }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
+        setShow(false);
+        year.forceUpdate();
+        yearList.forceUpdate();
+        cost.forceUpdate();
+        console.log(1111)
       })
       .catch(() => {
         setSuccessful(false);
@@ -180,7 +188,7 @@ const Cream = () => {
 
 
     return (
-      re.sort((a,b) => new Date(a.date) - new Date(b.date)).map(item => (
+      copyCreams.sort((a,b) => new Date(a.date) - new Date(b.date)).map(item => (
       <div key={item.id} className={styles.cream_card_container}>
         <div className={styles.cream_card_header}>
           <div className={styles.cream_card_header_date}>{time(item.date)}</div>
