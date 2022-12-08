@@ -17,22 +17,6 @@ const login = (username, password) => {
       username,
       password,
     })
-    .then((response) => {
-      if (response.data.username) {
-        localStorage.setItem("user", response.data.username);
-        localStorage.setItem("user_id", response.data.id);
-        localStorage.setItem("Authorization", response.headers.get("Authorization"));
-      }
-
-      return response.data;
-    });
-};
-
-const logout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("id");
-  localStorage.removeItem("Authorization");
-  return null;
 };
 
 const getCurrentUser = () => {
@@ -42,7 +26,6 @@ const getCurrentUser = () => {
 const AuthService = {
   register,
   login,
-  logout,
   getCurrentUser,
 }
 
