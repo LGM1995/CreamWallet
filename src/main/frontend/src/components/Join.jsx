@@ -4,14 +4,16 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import styles from "./Join.module.css"
 import * as Yup from "yup";
 
-import { register } from "../slices/auth";
+import { register } from "../features/slices/authSlice";
 import { clearMessage } from "../slices/message";
 import {Link, useNavigate} from "react-router-dom";
 
 const Join = () => {
   const [successful, setSuccessful] = useState(false);
-
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  // 로그인 상태 state를 store에서 가져옴
   const { message } = useSelector((state) => state.message);
+  // 메시지를 표시할 state를 store에서 가져옴
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
