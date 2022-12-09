@@ -5,7 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./Login.module.css"
 
-import { login } from "../slices/auth";
+import { login } from "../features/slices/authSlice";
 import { clearMessage } from "../slices/message";
 
 const Login = () => {
@@ -14,15 +14,19 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector((state) => state.auth);
+  // 로그인 상태 state를 store에서 가져옴
   const { message } = useSelector((state) => state.message);
-
+  // 메시지를 표시할 state를 store에서 가져옴
   const dispatch = useDispatch();
+  // dispatch를 사용하기 위해 가져옴
 
   useEffect(() => {
     dispatch(clearMessage());
+    // 사이드 렌더링으로 error 메세지를 비우고 변화할 때 마다 리 렌더링 시킨다.
   }, [dispatch]);
 
   const initialValues = {
+    // 로그인을 위해 받을 아이디와 비밀번호 초기 값
     username: "",
     password: "",
   };
@@ -39,8 +43,8 @@ const Login = () => {
     dispatch(login({ username, password }))
       .unwrap()
       .then(() => {
+        // 로그인이 성공하면 메인 페이지로 이동
         navigate("/cream");
-        window.location.reload();
       })
       .catch(() => {
         setLoading(false);
@@ -48,6 +52,7 @@ const Login = () => {
   };
 
   if (isLoggedIn) {
+    // 전역 변수로 저장된 로그인 상태가 ture라면 메인 페이지로 이동시킴
     return <Navigate to="/cream" />;
   }
 
