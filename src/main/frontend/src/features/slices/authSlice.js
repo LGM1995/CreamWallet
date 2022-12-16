@@ -31,7 +31,7 @@ export const login = createAsyncThunk(
   async ({ username, password }, thunkAPI) => {
     try {
       const response = await AuthService.login(username, password);
-      localStorage.setItem("Authorization", response.headers.get("authorization"))
+      localStorage.setItem("Authorization", "Bearer " + response.headers.get("authorization"))
       // 헤더에 담긴 쿠키 값을 localStorage에 저장한다.
       localStorage.setItem("username", response.data.username);
       // store는 새로고침 하면 초기화 되는 속성이 있기 때문에 로그인을 유지하기 위한 기본 username과 isLoggedIn 상태를
