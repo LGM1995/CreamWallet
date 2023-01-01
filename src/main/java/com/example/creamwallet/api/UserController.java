@@ -25,6 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
+    // getMyUserInfo가 호출되기전에 실행되는 검사로 권한이 있는지 확인하는 어노테이션
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserDto> getMyUserInfo(HttpServletRequest request) {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities());
