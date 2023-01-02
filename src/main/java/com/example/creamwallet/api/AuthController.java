@@ -33,7 +33,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> authorize(HttpServletResponse response, @Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<UserDto> authorize(HttpServletResponse response,
+                                             @Valid @RequestBody LoginDto loginDto
+                                             /* 검증에 대한 valid 어노테이션과 바디에 담긴 값이 LoginDto라는 것을 명시 */) {
         HttpHeaders httpHeaders = new HttpHeaders();
         TokenDto tokenDto = userService.login(loginDto);
         httpHeaders.add("Authorization", tokenDto.getAccessToken());
